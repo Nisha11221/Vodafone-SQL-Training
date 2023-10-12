@@ -1,0 +1,58 @@
+-- Table Creation
+
+create table gym_members(
+id NUMBER(10) primary key,
+name varchar2(20) not null,
+age number(3) not null check(age>0),
+joining_date DATE not null, 
+expiration_date DATE not null,
+cost NUMBER(30) not null check(cost>0),
+city varchar2(30) default 'mumbai' not null,
+height NUMBER(3) not null,
+weight NUMBER(3) not null,
+created_at date default sysdate
+);
+
+
+
+-- Inserting values in table
+
+insert into gym_members(id, name, age,joining_date,expiration_date,cost,city,height,weight) values(Gym_seq.nextval,'Marshall',25,'15-JAN-2023','31-DEC-2023',25000,'pune',170,70);
+
+insert into gym_members(id, name, age,joining_date,expiration_date,cost,city,height,weight) values(Gym_seq.nextval,'Robin',33,'15-JAN-2023','8-AUG-2023',43000,'mumbai',137,47);
+
+insert into gym_members(id, name, age,joining_date,expiration_date,cost,city,height,weight) values(Gym_seq.nextval,'Lily',21,'5-JUL-2023','1-AUG-2023',50000,'delhi',167,76);
+
+insert into gym_members(id, name, age,joining_date,expiration_date,cost,city,height,weight) values(Gym_seq.nextval,'Ted',55,'15-JUL-2023','22-DEC-2023',15000,'satara',150,52);
+
+insert into gym_members(id, name, age,joining_date,expiration_date,cost,city,height,weight) values(Gym_seq.nextval,'Jack',78,'1-FEB-2023','3-MAY-2023',12000,'pune',140,70);
+
+insert into gym_members(id, name, age,joining_date,expiration_date,cost,city,height,weight) values(Gym_seq.nextval,'Barney',45,'14-SEP-2023','31-OCT-2023',20600,'mumbai',166,56);
+
+
+--select all people whos cost is geater than 20000
+select * from gym_members where cost>20000;
+
+-- select all the people who live in pune
+select * from gym_members where city='pune';
+
+-- select all the people who live in mumbai and have age >24
+select * from gym_members where city='mumbai' and age>24;
+
+--select all the people who have joined for only 3 months
+select * from gym_members where months_between(expiration_date,joining_date)=3;
+
+--fetch name and bmi for all members
+select name, (weight/((height/100)*(height/100))) as bmi from gym_members;
+
+--show all the members in descending order of their height
+select * from gym_members order by height desc;
+
+--show birth year of members based on their age for city mumbai
+select name, EXTRACT(YEAR FROM sysdate) - age as BIRTH_YEAR from gym_members where city = 'mumbai';
+
+
+
+
+
+
